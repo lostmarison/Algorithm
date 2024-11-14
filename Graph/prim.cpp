@@ -1,25 +1,3 @@
-/*
-void Mgraph::Prim(int v) {
-    int i, j, k;
-    // 初始化
-    vector<int> adjvex(edgeNum, 0);  // 访问情况（已知顶点集合）
-    vector<int> lowcost(edgeNum);    // 候选最短边的权值
-    for (i = 0; i < vertexNum; ++i) {
-        lowcost[i] = edge[v][i];  // 权值
-        adjvex[v] = 1;            // 将顶点v加入已知集合
-    }
-    cout << v << " ";  // 输出开始顶点
-    // 找最近邻接点
-    for (k = 1; k < vertexNum; ++k) {  // 还差vertexNum-1个顶点
-        j = MinEdge(adjvex, lowcost);  // 最短边顶点
-        cout << j << " ";              // 输出当前顶点
-        adjvex[j] = 1;                 // 当前顶点加入已知顶点集合
-        for (i = 0; i < vertexNum; ++i) {
-            lowcost[i] = min(lowcost[i], edge[j][i]);  // 更新权值数组
-        }
-    }
-}
-*/
 #include <iostream>
 #include <string>
 #include <vector>
