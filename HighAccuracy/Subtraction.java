@@ -1,49 +1,41 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Subtraction {
+public class Factorial {
     /**
-     * 计算两个用字符串表示的非负大整数的差
-     * 注：a>b
+     * 计算非负整数的阶乘，并以整型数组的形式返回结果。
      *
-     * @param a String类型的对象，代表被减数
-     * @param b String类型的对象，代表减数
-     * @return int类型的数组，代表的差
+     * @param n 非负整数，代表待求阶乘的整数
+     * @return 整型数组，数组中的每个元素代表阶乘结果的一位数字
      */
-    public int[] subtraction(String a, String b) {
-        int len1 = a.length(); // 被减数的长度
-        int len2 = b.length(); // 减数的长度
-        int[] one = new int[len1]; // 存放a的每一位数字
-        int[] two = new int[len1]; // 按右对齐存放b的每位数字，不够的补0
-        int i;
-        int j;
-        for (i = 0; i < len1; i++) { // 将a的每位数字存入one数组
-            one[i] = a.charAt(i) - '0';
-        }
-        for (i = len2 - 1, j = len1 - 1; i >= 0; i--, j--) { // 按右对齐将b存放入two数组
-            two[j] = b.charAt(i) - '0';
-        }
-        int[] ans = new int[len1]; // 存放计算结果
-        for (i = len1 - 1; i >= 0; --i) { // 从低位到高位，依次逐位做减法
-            if (one[i] < two[i]) { // 如果当前被减数位小于减数位
-                --one[i - 1]; // 被减数的高一位减1
-                one[i] += 10; // 从高位借10
+    public int[] factorial(int n) {
+        // 初始化一个足够大的数组来存储阶乘结果的每一位数字
+        int[] ans = new int[5001];
+        ans[5000] = 1; // 初始化ans[5000]=1,因为0!=0
+        int validIndex = 5000; // 记录有效数字的下标
+        for (int i = 1; i <= n; ++i) { // 从1开始计算到n的阶乘
+            int carry = 0; // carry用于存储乘法运算中的进位
+            for (int j = 5000; j >= validIndex; --j) { // 每乘依次都应该从个位开始计算
+                ans[j] = ans[j] * i + carry; // 计算对应位数的乘积
+                carry = ans[j] / 10; // 更新进位carry
+                ans[j] %= 10; // 更新当前位的值（只保留个位数）
             }
-            ans[i] = one[i] - two[i]; // 当前数位做减法
+            // 如果乘法运算后有进位，则需要将进位加到结果的更高位上
+            while (carry > 0) { // 可能会多次进位
+                ans[--validIndex] = carry % 10; // 将进位的个位数添加到更高位
+                carry /= 10; // 更新进位（去掉已经添加的个位数）
+            }
         }
-        int validIndex = 0; // 记录有效数字的索引
-        while (validIndex < len1 - 1 && ans[validIndex] == 0) {
-            ++validIndex;
-        }
-        return Arrays.copyOfRange(ans, validIndex, len1);
+        // ans[validIndex]~ans[5000]构成最终计算结果
+        return Arrays.copyOfRange(ans, validIndex, 5001);
     }
 
     public static void main(String[] args) {
-        Subtraction test = new Subtraction();
+        Factorial test = new Factorial();
         Scanner input = new Scanner(System.in);
-        String a = input.next();
-        String b = input.next();
-        int[] res = test.subtraction(a, b);
+        int n = input.nextInt(); // 输入的非负整数n
+        int[] res = test.factorial(n); // 调用factorial方法计算n的阶乘
+        // 遍历结果数组，输出阶乘的每一位数字
         for (int e : res) {
             System.out.print(e);
         }
