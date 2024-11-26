@@ -46,7 +46,7 @@ public void BubbleSort(int[] nums) {
 霍尔快速排序
 ```java
 /**
- * 交换数组中两个元素的位置
+ * 交换数组中两个指定索引元素的位置。
  *
  * @param nums 要交换元素的数组
  * @param i    第一个元素的索引
@@ -59,7 +59,7 @@ public void swap(int[] nums, int i, int j) {
 }
 
 /**
- * 对数组进行划分，并返回基准元素（pivot）的最终位置
+ * 对数组进行划分，并返回基准元素（pivot）的最终位置。
  *
  * @param nums 要划分的数组
  * @param i    划分的起始索引
@@ -86,7 +86,7 @@ public int Partition(int[] nums, int i, int j) {
 }
 
 /**
- * 使用霍尔快速排序算法对数组进行排序
+ * 使用霍尔快速排序算法对数组进行排序。
  *
  * @param nums 要排序的数组
  * @param i    排序的起始索引
@@ -104,4 +104,38 @@ public void HoareQuickSort(int[] nums, int i, int j) {
     HoareQuickSort(nums, pivotIndex + 1, j);
 }
 ```
+简单选择排序
+```java
+/**
+ * 查找数组中从给定起始索引开始的最小元素的索引。
+ *
+ * @param nums  要查找的整数数组
+ * @param start 从哪个索引开始查找最小元素
+ * @return 从起始索引开始的最小元素的索引
+ */
+public int findMinIndex(int[] nums, int start) {
+    int n = nums.length; // 获取数组的长度
+    int minIndex = start; // 初始化最小元素的索引为起始索引
+    for (int i = start + 1; i < n; i++) { // 从起始索引的下一个元素开始遍历数组
+        if (nums[i] < nums[minIndex]) { // 如果当前元素小于当前已知的最小元素
+            minIndex = i; // 更新最小元素的索引
+        }
+    }
+    return minIndex; // 返回最小元素的索引
+}
 
+/**
+ * 使用简单选择排序算法对数组进行排序。
+ *
+ * @param nums 要排序的整数数组
+ */
+public void SimpleSelectSort(int[] nums) {
+    int n = nums.length; // 获取数组的长度
+    for (int i = 0; i < n - 1; i++) { // 遍历数组，除了最后一个元素（因为它会在之前的迭代中被排序）
+        int minIndex = findMinIndex(nums, i + 1); // 查找从当前索引的下一个元素开始的最小元素的索引
+        if (nums[minIndex] < nums[i]) { // 如果找到的最小元素小于当前索引的元素
+            swap(nums, i, minIndex); // 交换这两个元素的位置
+        }
+    }
+}
+```
