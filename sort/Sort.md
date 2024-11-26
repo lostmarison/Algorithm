@@ -1,3 +1,5 @@
+# 八大排序算法
+直接插入排序
 ```java
 /**
  * 插入排序算法实现。
@@ -19,7 +21,8 @@ public void InsertSort(int[] nums) {
     }
 }
 ```
-        ```java
+冒泡排序
+```java
 /**
  * 冒泡排序算法实现。
  *
@@ -40,7 +43,8 @@ public void BubbleSort(int[] nums) {
     }
 }
 ```
-        ```java
+霍尔快速排序
+```java
 /**
  * 交换数组中两个元素的位置
  *
